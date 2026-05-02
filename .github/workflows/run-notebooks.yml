@@ -1,0 +1,100 @@
+name: Execute Notebooks & Commit Outputs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-churn-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install "numpy==1.26.4" pandas scikit-learn "xgboost==1.7.6" "shap==0.43.0" \
+            matplotlib seaborn plotly jupyter nbconvert ipykernel requests
+
+      - name: Configure git
+        run: |
+          git config user.name "Jayanshu Badlani"
+          git config user.email "badlanijayanshu@gmail.com"
+
+      - name: Run 01_eda.ipynb
+        run: |
+          jupyter nbconvert --to notebook --execute --inplace \
+            --ExecutePreprocessor.timeout=300 \
+            notebooks/01_eda.ipynb
+
+      - name: Run 02_model.ipynb
+        run: |
+          jupyter nbconvert --to notebook --execute --inplace \
+            --ExecutePreprocessor.timeout=300 \
+            notebooks/02_model.ipynb
+
+      - name: Run 03_shap.ipynb
+        run: |
+          jupyter nbconvert --to notebook --execute --inplace \
+            --ExecutePreprocessor.timeout=300 \
+            notebooks/03_shap.ipynb
+
+      - name: Run 04_cohort.ipynb
+        run: |
+          jupyter nbconvert --to notebook --execute --inplace \
+            --ExecutePreprocessor.timeout=300 \
+            notebooks/04_cohort.ipynb
+
+      - name: Update README with actual metrics
+        run: |
+          python3 - <<'EOF'
+          import json, re
+
+          with open("results/metrics.json") as f:
+              m = json.load(f)
+
+          with open("README.md") as f:
+              readme = f.read()
+
+          table = f"""| Metric | Score |
+          |---|---|
+          | Accuracy | {m['accuracy']} |
+          | F1 Score (weighted) | {m['f1_weighted']} |
+          | ROC-AUC | {m['roc_auc']} |
+          | F1 Score (binary) | {m['f1_binary']} |
+          | CV ROC-AUC (5-fold) | {m['cv_roc_auc_mean']} ± {m['cv_roc_auc_std']} |"""
+
+          readme = re.sub(
+              r"\| Metric \| Score \|.*?\> Results populated.*?\n",
+              table + "\n",
+              readme,
+              flags=re.DOTALL
+          )
+
+          with open("README.md", "w") as f:
+              f.write(readme)
+
+          print("README updated with metrics.")
+          EOF
+
+      - name: Commit notebook outputs and updated README
+        run: |
+          git add notebooks/ visuals/ results/ README.md
+          git commit -m "Add notebook outputs and update README with results"
+          git push
