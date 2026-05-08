@@ -29,8 +29,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install "numpy==1.26.4" pandas scikit-learn "xgboost==1.7.6" "shap==0.43.0" \
-            matplotlib seaborn plotly jupyter nbconvert ipykernel requests
+          pip install -r requirements.txt \
+            jupyter nbconvert ipykernel
 
       - name: Configure git
         run: |
