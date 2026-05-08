@@ -1,11 +1,11 @@
 {
   "model": "XGBoost",
-  "accuracy": 0.7594,
-  "f1_weighted": 0.7701,
-  "f1_binary": 0.6229,
-  "roc_auc": 0.8362,
-  "cv_roc_auc_mean": 0.8401,
-  "cv_roc_auc_std": 0.011,
+  "accuracy": 0.7566,
+  "f1_weighted": 0.7677,
+  "f1_binary": 0.621,
+  "roc_auc": 0.8376,
+  "cv_roc_auc_mean": 0.8384,
+  "cv_roc_auc_std": 0.0113,
   "train_size": 5634,
   "test_size": 1409
 }
