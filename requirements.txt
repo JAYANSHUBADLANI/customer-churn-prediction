@@ -9,4 +9,3 @@ plotly>=5.18.0
 jupyter>=1.0.0
 nbconvert>=7.10.0
 ipykernel>=6.28.0
-requests>=2.31.0

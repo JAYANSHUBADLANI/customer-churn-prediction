@@ -21,10 +21,10 @@ customer-churn-prediction/
 
 | Metric | Score |
 |---|---|
-| Accuracy | 0.7594 |
-| F1 (weighted) | 0.7701 |
-| ROC-AUC | 0.8362 |
-| CV ROC-AUC (5-fold) | 0.8401 ± 0.011 |
+| Accuracy | 0.7566 |
+| F1 (weighted) | 0.7677 |
+| ROC-AUC | 0.8376 |
+| CV ROC-AUC (5-fold) | 0.8384 ± 0.0113 |
 
 ## How to Run
 
