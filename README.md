@@ -26,6 +26,32 @@ customer-churn-prediction/
 | ROC-AUC | 0.8376 |
 | CV ROC-AUC (5-fold) | 0.8384 ± 0.0113 |
 
+On the churn class the model runs at 0.75 recall and 0.53 precision on the 1,409 held-out
+customers, so it finds three in four churners at the cost of roughly one false alarm per real
+one. For a retention call list that is usually the right side of the trade.
+
+![Model evaluation](visuals/model_evaluation.png)
+
+## What drives churn
+
+Overall churn is 26.5%. Contract type dominates everything else: month-to-month customers churn
+at 42.7%, two-year customers at 2.8%. Customers who left had been around 18.0 months on average
+against 37.6 for those who stayed, and paid $74.44 a month against $61.27.
+
+SHAP ranks contract first and tenure second, the same order the exploratory analysis suggested
+before any model was fitted.
+
+![SHAP summary](visuals/shap_summary.png)
+
+## Where the lost revenue sits
+
+Cutting customers by contract and tenure cohort and summing the monthly charges of the ones who
+actually churned gives $139,131 a month. The largest single block is month-to-month customers in
+their first six months: 1,413 customers, 55.2% of them gone, $49,681 a month. Two-year contracts
+barely register in any cohort, which says the contract is doing retention work a model cannot.
+
+![Lost monthly revenue by contract and tenure](visuals/revenue_at_risk_heatmap.png)
+
 ## How to Run
 
 ```bash
@@ -41,4 +67,4 @@ Run notebooks in order: `01_eda` → `02_model` → `03_shap` → `04_cohort`. P
 
 [IBM Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn): 7,043 customers, 21 features. Target variable: `Churn` (Yes/No).
 
-**Author:** Jayanshu Badlani | [GitHub](https://github.com/JAYANSHUBADLANI) | [LinkedIn](https://linkedin.com/in/jayanshu-badlani)
+**Author:** Jayanshu Badlani | [GitHub](https://github.com/JAYANSHUBADLANI) | [LinkedIn](https://www.linkedin.com/in/jayanshu-badlani-b77478185)
