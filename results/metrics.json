@@ -7,5 +7,6 @@
   "cv_roc_auc_mean": 0.8384,
   "cv_roc_auc_std": 0.0113,
   "train_size": 5634,
-  "test_size": 1409
+  "test_size": 1409,
+  "top_decile_lift": 2.97
 }
