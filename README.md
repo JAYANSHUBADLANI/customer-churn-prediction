@@ -61,6 +61,8 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
+`requirements.txt` pins the versions of the CI run that produced `results/metrics.json` (Python 3.10 on Linux x86). With those versions the numbers reproduce exactly on Linux x86. XGBoost results shift slightly across CPU architectures: on Apple Silicon the same code gives ROC-AUC 0.840 and top decile lift 2.91.
+
 Run notebooks in order: `01_eda` → `02_model` → `03_shap` → `04_cohort`. Plots save to `/visuals`, metrics to `/results/metrics.json`.
 
 ## Dataset
