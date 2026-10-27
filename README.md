@@ -69,4 +69,6 @@ Run notebooks in order: `01_eda` → `02_model` → `03_shap` → `04_cohort`. P
 
 [IBM Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn): 7,043 customers, 21 features. Target variable: `Churn` (Yes/No).
 
+This is IBM's sample Telco dataset (fictional customers, not real records), so the results show how the method works rather than how real customers behave.
+
 **Author:** Jayanshu Badlani | [GitHub](https://github.com/JAYANSHUBADLANI) | [LinkedIn](https://www.linkedin.com/in/jayanshu-badlani-b77478185)
